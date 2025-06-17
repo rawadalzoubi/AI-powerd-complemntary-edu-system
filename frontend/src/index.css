@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Support - For Arabic language */
+html[dir="rtl"] {
+  /* Override text alignment */
+  .text-left {
+    text-align: right;
+  }
+
+  .text-right {
+    text-align: left;
+  }
+  
+  /* Flip margins and paddings */
+  .ml-1, .ml-2, .ml-3, .ml-4 {
+    margin-left: 0;
+    margin-right: 0.25rem; /* 0.25rem for ml-1, adjust accordingly */
+  }
+  
+  .mr-1, .mr-2, .mr-3, .mr-4 {
+    margin-right: 0;
+    margin-left: 0.25rem; /* 0.25rem for mr-1, adjust accordingly */
+  }
+  
+  .pl-1, .pl-2, .pl-3, .pl-4 {
+    padding-left: 0;
+    padding-right: 0.25rem; /* 0.25rem for pl-1, adjust accordingly */
+  }
+  
+  .pr-1, .pr-2, .pr-3, .pr-4 {
+    padding-right: 0;
+    padding-left: 0.25rem; /* 0.25rem for pr-1, adjust accordingly */
+  }
+  
+  /* Flip floats */
+  .float-left {
+    float: right;
+  }
+  
+  .float-right {
+    float: left;
+  }
+  
+  /* Flip icons if needed */
+  .icon-flip-rtl {
+    transform: scaleX(-1);
+  }
+}
+
+/* Font settings for Arabic */
+html[lang="ar"] body {
+  font-family: "Arial", "Segoe UI", sans-serif;
+}

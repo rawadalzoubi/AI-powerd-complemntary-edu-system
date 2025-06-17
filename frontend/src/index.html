@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complementary Education System</title>
+    <!-- Add TailwindCSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .password-toggle {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+      }
+      .role-option {
+          display: flex;
+          align-items: center;
+          padding: 12px 16px;
+          border: 2px solid #e5e7eb;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-bottom: 8px;
+      }
+      .role-option:hover {
+          border-color: #818cf8;
+      }
+      .role-option.selected {
+          border-color: #4f46e5;
+          background-color: #f5f3ff;
+      }
+      .role-checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 20px;
+          height: 20px;
+          border: 2px solid #d1d5db;
+          border-radius: 4px;
+          margin-right: 12px;
+          position: relative;
+          cursor: pointer;
+          transition: all 0.2s ease;
+      }
+      .role-checkbox:checked {
+          background-color: #4f46e5;
+          border-color: #4f46e5;
+      }
+      .role-checkbox:checked::after {
+          content: "✓";
+          position: absolute;
+          color: white;
+          font-size: 12px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+      .role-icon {
+          margin-right: 12px;
+          color: #6b7280;
+          font-size: 20px;
+      }
+      .role-option.selected .role-icon {
+          color: #4f46e5;
+      }
+      .shake {
+          animation: shake 0.5s;
+      }
+      @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          20%, 60% { transform: translateX(-5px); }
+          40%, 80% { transform: translateX(5px); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html> 

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Lesson Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #4a5af8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #3949d8;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Emergency Lesson 35 Debug Tool</h1>
+        
+        <div class="card">
+            <h2>Test Direct Access</h2>
+            <div>
+                <label for="tokenInput">JWT Token:</label>
+                <input type="text" id="tokenInput" placeholder="JWT Token will be auto-loaded from localStorage if available">
+            </div>
+            <div>
+                <button onclick="testDebugEndpoint()">Test Debug Endpoint</button>
+                <button onclick="testLessonApi()">Test Lesson API</button>
+                <button onclick="refreshToken()">Refresh Token</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Debug Information</h2>
+            <div>User: <span id="userInfo"></span></div>
+            <div>
+                <h3>Result:</h3>
+                <pre id="resultOutput">Results will appear here...</pre>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-load token and user info on page load
+        window.onload = function() {
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                document.getElementById('tokenInput').value = token;
+                console.log('Loaded token from localStorage:', token.substring(0, 15) + '...');
+                
+                // Try to get user info from token
+                try {
+                    const parts = token.split('.');
+                    if (parts.length === 3) {
+                        const payload = JSON.parse(atob(parts[1]));
+                        document.getElementById('userInfo').textContent = `${payload.user_id} (${payload.email})`;
+                    }
+                } catch (e) {
+                    console.error('Failed to parse token:', e);
+                }
+            }
+        };
+        
+        // Test the special debug endpoint
+        async function testDebugEndpoint() {
+            const resultElement = document.getElementById('resultOutput');
+            const token = document.getElementById('tokenInput').value;
+            
+            try {
+                resultElement.innerHTML = 'Testing debug endpoint...';
+                
+                const response = await fetch('http://localhost:8000/debug/lesson35/', {
+                    method: 'GET',
+                    headers: token ? {
+                        'Authorization': `Bearer ${token}`
+                    } : {}
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultElement.innerHTML = `<span class="success">Debug endpoint success!</span>\n\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultElement.innerHTML = `<span class="error">Debug endpoint error: ${response.status} ${response.statusText}</span>\n\n${JSON.stringify(data, null, 2)}`;
+                }
+                
+                console.log('Debug response:', data);
+                
+            } catch (e) {
+                resultElement.innerHTML = `<span class="error">Debug endpoint failed: ${e.message}</span>`;
+                console.error('Debug endpoint failed:', e);
+            }
+        }
+        
+        // Test the regular lesson API
+        async function testLessonApi() {
+            const resultElement = document.getElementById('resultOutput');
+            const token = document.getElementById('tokenInput').value;
+            
+            if (!token) {
+                resultElement.innerHTML = '<span class="error">Error: Token is required for API access</span>';
+                return;
+            }
+            
+            try {
+                resultElement.innerHTML = 'Testing lesson API...';
+                
+                const response = await fetch('http://localhost:8000/api/student/lessons/35/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultElement.innerHTML = `<span class="success">API success!</span>\n\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultElement.innerHTML = `<span class="error">API error: ${response.status} ${response.statusText}</span>\n\n${JSON.stringify(data, null, 2)}`;
+                }
+                
+                console.log('API response:', data);
+                
+            } catch (e) {
+                resultElement.innerHTML = `<span class="error">API call failed: ${e.message}</span>`;
+                console.error('API call failed:', e);
+            }
+        }
+        
+        // Refresh token from localStorage (for when user logs in again)
+        function refreshToken() {
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                document.getElementById('tokenInput').value = token;
+                document.getElementById('resultOutput').innerHTML = `<span class="success">Token refreshed from localStorage</span>`;
+                console.log('Refreshed token:', token.substring(0, 15) + '...');
+            } else {
+                document.getElementById('resultOutput').innerHTML = `<span class="error">No token found in localStorage</span>`;
+            }
+        }
+    </script>
+</body>
+</html> 

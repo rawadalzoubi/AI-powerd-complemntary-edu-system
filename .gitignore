@@ -1,0 +1,61 @@
+# General
+.DS_Store
+.env
+.envrc
+*.log
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyd
+*.so
+env/
+venv/
+va/
+AI/homework_helper/va/
+backend/Education/v2/
+build/
+dist/
+.Python
+.pytest_cache/
+*.egg-info/
+.ipynb_checkpoints/
+.mypy_cache/
+backend/Education/Educational_system/eduAPI/migrations/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tgz
+pnpm-debug.log*
+pnpm-lock.yaml
+package-lock.json
+frontend/dist/
+frontend/node_modules/
+dist-ssr/
+
+# IDE and Editor specific files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# User-uploaded content
+backend/Education/Educational_system/media/
+
+# Environment variables
+.env
+
+# Other generated files
+conda/
+.cursorroles
+*.local
+lerna-debug.log* 
