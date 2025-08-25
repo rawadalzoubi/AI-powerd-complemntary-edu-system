@@ -1,3 +1,4 @@
+from ast import Expression
 import os
 import logging
 import argparse
@@ -464,6 +465,13 @@ class OpenRouterLLM(BaseLLM):
 
 5.  الالتزام بالسياق: يجب أن تكون جميع إجاباتك وإرشاداتك مستندة بالكامل إلى "السياق" المقدم. إذا كانت المعلومات غير متوفرة، اذكر ذلك بوضوح.
 
+6. لا ترسل اي كلام باللفة الصينية 
+
+7. لا تظهر ترسل كيف تفكر و انما باشر بالارشاد و لا تعطي الحل مباشرة و انما ركز على طريقة الحل
+
+8.اجعل الرد مفهوما و مرتبا على شكل خطوات متسلسلة و منطقية 
+
+9. لا تظهر اي لغة سوى اللغة التي سأل بها الطالب
 ---
 السياق:
 {context_text}
@@ -484,7 +492,7 @@ class OpenRouterLLM(BaseLLM):
             "messages": [
                 {"role": "user", "content": prompt}
             ],
-            "max_tokens": 2048,
+            "max_tokens": 4096,
             "temperature": 0.9
         }
         try:

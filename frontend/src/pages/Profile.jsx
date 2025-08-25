@@ -361,7 +361,7 @@ const Profile = () => {
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">{currentUser?.role === 'student' ? 'Student Profile' : 'Teacher Profile'}</h1>
+        <h1 className="text-2xl font-bold">{currentUser?.role === 'student' ? 'Student Profile' : currentUser?.role === 'teacher' ? 'Teacher Profile' : 'Advisor Profile'}</h1>
           <div className="flex space-x-2">
             <button
               onClick={() => navigate('/home')}

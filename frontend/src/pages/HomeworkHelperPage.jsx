@@ -47,7 +47,7 @@ const HomeworkHelperPage = () => {
         fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question: message, top_k: 0 }),
+            body: JSON.stringify({ question: message, top_k: 5 }),
         })
         .then(response => {
             if (!response.ok) {

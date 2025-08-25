@@ -114,7 +114,7 @@ const LoginForm = () => {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="john.doe@example.com"
+                placeholder="rawad.mohammad@example.com"
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${
                   formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'
                 }`}

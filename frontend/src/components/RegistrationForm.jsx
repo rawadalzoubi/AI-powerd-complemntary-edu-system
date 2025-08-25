@@ -109,7 +109,7 @@ const RegistrationForm = () => {
                 id="first_name"
                 type="text"
                 name="first_name"
-                placeholder="John"
+                placeholder="Rawad"
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${
                   formik.touched.first_name && formik.errors.first_name ? 'border-red-500' : 'border-gray-300'
                 }`}
@@ -133,7 +133,7 @@ const RegistrationForm = () => {
                 id="last_name"
                 type="text"
                 name="last_name"
-                placeholder="Doe"
+                placeholder="Alzoubi"
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${
                   formik.touched.last_name && formik.errors.last_name ? 'border-red-500' : 'border-gray-300'
                 }`}
@@ -158,7 +158,7 @@ const RegistrationForm = () => {
               id="email"
               type="email"
               name="email"
-              placeholder="john.doe@example.com"
+              placeholder="rawad.mohammed@example.com"
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${
                 (formik.touched.email && formik.errors.email) || emailError ? 'border-red-500' : 'border-gray-300'
               }`}

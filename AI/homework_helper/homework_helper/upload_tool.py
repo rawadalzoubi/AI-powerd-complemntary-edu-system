@@ -13,7 +13,7 @@ def upload_file_to_db(file_path: str):
     try:
         with open(file_path, "rb") as f:
             file_content = f.read()
-    except Exception as e:
+    except Exception as e:  
         print(f"Error reading file {file_path}: {e}")
         return
 
