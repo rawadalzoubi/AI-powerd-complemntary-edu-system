@@ -1,0 +1,46 @@
+{% extends 'advisor_management/base.html' %} {% block title %}Delete Advisor -
+EduTrack{% endblock %} {% block content %}
+<div class="card">
+  <h2>🗑️ Delete Advisor</h2>
+
+  <div
+    style="
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    "
+  >
+    <strong>⚠️ Warning:</strong> This action cannot be undone!
+  </div>
+
+  <p>Are you sure you want to delete the following advisor?</p>
+
+  <div
+    style="
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    "
+  >
+    <strong>👤 Name:</strong> {{ advisor.first_name }} {{ advisor.last_name
+    }}<br />
+    <strong>📧 Email:</strong> {{ advisor.email }}<br />
+    <strong>📅 Joined:</strong> {{ advisor.date_joined|date:"M d, Y" }}
+  </div>
+
+  <form method="post" style="display: inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">🗑️ Yes, Delete Advisor</button>
+  </form>
+
+  <a
+    href="{% url 'advisor_list' %}"
+    class="btn"
+    style="background: #6c757d; color: white; margin-left: 10px"
+    >❌ Cancel</a
+  >
+</div>
+{% endblock %}

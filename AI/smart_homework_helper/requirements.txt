@@ -1,0 +1,38 @@
+Web Framework
+
+fastapi>=0.100.0
+uvicorn>=0.20.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.9
+
+RAG & AI (Inference Only)
+
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-huggingface>=0.0.1
+langchain-openai>=0.0.2
+langchain-text-splitters>=0.0.1
+langchain-core>=0.1.0
+
+Vector Database (Running the index)
+
+faiss-cpu>=1.7.4
+
+Embeddings (Running the models)
+
+sentence-transformers>=2.2.2
+transformers>=4.30.0
+torch>=2.0.0
+
+Image Processing (For search-image)
+
+Pillow>=10.0.0
+
+Audio Processing (For search-voice)
+
+openai-whisper>=20231117
+moviepy>=1.0.3
+
+Utilities
+
+requests>=2.31.0

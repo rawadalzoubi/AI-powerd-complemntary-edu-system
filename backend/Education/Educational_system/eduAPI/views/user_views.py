@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.views.decorators.csrf import csrf_exempt
 from ..services import user_service
 from ..serializers.user_serializers import (
     UserSerializer, RegisterSerializer, VerifyEmailSerializer, 
@@ -163,6 +164,13 @@ def login_user(request):
             
             # Authenticate user
             if user.check_password(password):
+                # Check if user account is active
+                if not user.is_active:
+                    return Response({
+                        'status': 'error',
+                        'message': 'Your account has been deactivated. Please contact an administrator.'
+                    }, status=status.HTTP_401_UNAUTHORIZED)
+                
                 # Check if email is verified
                 if not user.is_email_verified:
                     return Response({
@@ -525,21 +533,32 @@ def get_students_by_grade(request, grade_level=None):
     """
     Get all students filtered by grade level.
     This endpoint returns a list of students with the specified grade level.
+    Supports search by name or email.
     """
     try:
         # Check if the requesting user is an advisor
-        if request.user.role != User.ADVISOR:
+        if request.user.role != 'advisor':
             return Response({
                 'status': 'error',
                 'message': 'Only advisors can access this endpoint'
             }, status=status.HTTP_403_FORBIDDEN)
         
         # Filter students by grade level if provided
-        filters = Q(role=User.STUDENT)
+        filters = Q(role='student')
         if grade_level:
             filters &= Q(grade_level=grade_level)
+        
+        # Add search functionality
+        search_query = request.GET.get('search', '').strip()
+        if search_query:
+            search_filters = (
+                Q(first_name__icontains=search_query) |
+                Q(last_name__icontains=search_query) |
+                Q(email__icontains=search_query)
+            )
+            filters &= search_filters
             
-        students = User.objects.filter(filters)
+        students = User.objects.filter(filters).order_by('first_name', 'last_name')
         
         # Serialize student data
         student_data = []
@@ -549,7 +568,7 @@ def get_students_by_grade(request, grade_level=None):
                 'first_name': student.first_name,
                 'last_name': student.last_name,
                 'email': student.email,
-                'grade': student.grade_level,
+                'grade_level': student.grade_level,
                 'last_login': student.last_login.isoformat() if student.last_login else None
             })
         

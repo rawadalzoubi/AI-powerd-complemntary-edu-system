@@ -5,11 +5,13 @@ class User(AbstractUser):
     STUDENT = 'student'
     TEACHER = 'teacher'
     ADVISOR = 'advisor'
+    ADMIN = 'admin'
     
     ROLE_CHOICES = [
         (STUDENT, 'Student'),
         (TEACHER, 'Teacher'),
         (ADVISOR, 'Advisor'),
+        (ADMIN, 'System Administrator'),
     ]
     
     # Grade/Level choices for students
@@ -56,9 +58,23 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'role']
     
+    class Meta:
+        verbose_name = 'User (Advisor)'
+        verbose_name_plural = 'Users (Advisors)'
+    
     def __str__(self):
         return self.email 
         
     @property
     def full_name(self):
-        return f"{self.first_name} {self.last_name}" 
+        return f"{self.first_name} {self.last_name}"
+    
+    def save(self, *args, **kwargs):
+        # Auto-set admin role for superusers
+        if self.is_superuser and not self.role:
+            self.role = self.ADMIN
+        super().save(*args, **kwargs)
+    
+    @property
+    def is_admin(self):
+        return self.is_superuser or self.role == self.ADMIN 

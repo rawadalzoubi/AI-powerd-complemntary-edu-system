@@ -1,0 +1,73 @@
+{% extends "advisor_management/base.html" %}
+
+{% block title %}Advisor List - EduTrack{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2> Advisor List</h2>
+    <a href="{% url "create_advisor" %}" class="btn btn-primary"> Add New Advisor</a>
+  </div>
+
+  <!-- Statistics -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 24px; font-weight: bold; color: #007cba">{{ total_advisors }}</div>
+      <div style="color: #666">Total Advisors</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 24px; font-weight: bold; color: #28a745">{{ active_advisors }}</div>
+      <div style="color: #666">Active Advisors</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+      <div style="font-size: 24px; font-weight: bold; color: #dc3545">{{ total_advisors|add:"-"|add:active_advisors }}</div>
+      <div style="color: #666">Inactive Advisors</div>
+    </div>
+  </div>
+
+  {% if advisors %}
+  <table>
+    <thead>
+      <tr>
+        <th> Name</th>
+        <th> Email</th>
+        <th> Status</th>
+        <th> Joined</th>
+        <th> Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for advisor in advisors %}
+      <tr>
+        <td>{{ advisor.first_name }} {{ advisor.last_name }}</td>
+        <td>{{ advisor.email }}</td>
+        <td>
+          {% if advisor.is_active %}
+          <span class="status-active"> Active</span>
+          {% else %}
+          <span class="status-inactive"> Inactive</span>
+          {% endif %}
+        </td>
+        <td>{{ advisor.date_joined|date:"M d, Y" }}</td>
+        <td>
+          <div style="display: flex; gap: 5px">
+            <a href="{% url "reset_password" advisor.id %}" class="btn btn-warning" style="font-size: 12px; padding: 5px 10px"> Reset Password</a>
+            <a href="{% url "toggle_advisor_status" advisor.id %}" class="btn btn-success" style="font-size: 12px; padding: 5px 10px">
+              {% if advisor.is_active %} Deactivate{% else %} Activate{% endif %}
+            </a>
+            <a href="{% url "delete_advisor" advisor.id %}" class="btn btn-danger" style="font-size: 12px; padding: 5px 10px"> Delete</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="text-align: center; padding: 40px; color: #666">
+    <h3>No advisors found</h3>
+    <p>Start by creating your first advisor!</p>
+    <a href="{% url "create_advisor" %}" class="btn btn-primary"> Create First Advisor</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

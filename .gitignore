@@ -14,6 +14,10 @@ env/
 venv/
 va/
 AI/homework_helper/va/
+AI/smart_homework/va/
+AI/smart_homework_helper/va/
+AI/smart_homework_helper/vu/
+
 backend/Education/v2/
 build/
 dist/
@@ -23,7 +27,10 @@ dist/
 .ipynb_checkpoints/
 .mypy_cache/
 backend/Education/Educational_system/eduAPI/migrations/
-
+C:\Users\Rawad\Desktop\Complementary_Education_System\AI\smart_homework_helper\data
+"C:\Users\Rawad\Desktop\Complementary_Education_System\AI\smart_homework_helper\data"
+/data
+AI/smart_homework_helper/data
 # Node.js
 node_modules/
 npm-debug.log*
@@ -36,6 +43,7 @@ package-lock.json
 frontend/dist/
 frontend/node_modules/
 dist-ssr/
+lerna-debug.log*
 
 # IDE and Editor specific files
 .vscode/
@@ -53,9 +61,15 @@ backend/Education/Educational_system/media/
 
 # Environment variables
 .env
+.env.local
+.env.*.local
+*.local
 
-# Other generated files
+# Other
 conda/
 .cursorroles
+.vscode
+.kiro
 *.local
 lerna-debug.log* 
+*.md

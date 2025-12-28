@@ -1,4 +1,4 @@
-import LoginForm from '../components/LoginForm';
+import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   return (
@@ -8,4 +8,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

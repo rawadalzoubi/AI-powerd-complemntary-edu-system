@@ -1,0 +1,68 @@
+{% extends 'advisor_management/base.html' %} {% block title %}Create Advisor -
+EduTrack{% endblock %} {% block content %}
+<div class="card">
+  <h2>➕ Create New Advisor</h2>
+
+  <form method="post" style="max-width: 500px">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="email">📧 Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="advisor@example.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="first_name">👤 First Name</label>
+      <input
+        type="text"
+        id="first_name"
+        name="first_name"
+        required
+        placeholder="أحمد"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">👤 Last Name</label>
+      <input
+        type="text"
+        id="last_name"
+        name="last_name"
+        required
+        placeholder="علي"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">🔑 Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        placeholder="Enter secure password"
+        minlength="8"
+      />
+      <small style="color: #666"
+        >Password must be at least 8 characters long</small
+      >
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 20px">
+      <button type="submit" class="btn btn-primary">✅ Create Advisor</button>
+      <a
+        href="{% url 'advisor_list' %}"
+        class="btn"
+        style="background: #6c757d; color: white"
+        >❌ Cancel</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}
