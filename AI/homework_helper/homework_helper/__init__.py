@@ -1,3 +1,0 @@
-"""
-Homework Helper package initialization.
-""" 
