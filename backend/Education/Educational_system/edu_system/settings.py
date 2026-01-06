@@ -101,6 +101,14 @@ DATABASES = {
     }
 }
 
+# Use SQLite for testing (no need for MySQL permissions)
+import sys
+if 'test' in sys.argv or 'pytest' in sys.modules:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'test_db.sqlite3',
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
@@ -230,3 +238,4 @@ SIMPLE_JWT = {
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/advisors/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+

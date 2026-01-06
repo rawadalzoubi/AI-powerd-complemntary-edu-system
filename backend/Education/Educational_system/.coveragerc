@@ -1,0 +1,45 @@
+[run]
+source = eduAPI
+omit =
+    */migrations/*
+    */tests/*
+    */venv/*
+    */ve/*
+    */vu/*
+    */v2/*
+    */va/*
+    manage.py
+    */wsgi.py
+    */asgi.py
+    */settings.py
+    */apps.py
+    */__init__.py
+    */admin.py
+    # استبعاد الملفات غير المستخدمة والسكربتات الجانبية
+    */live_sessions_views.py
+    create_admin.py
+    delete_superuser.py
+    check_template.py
+    check_all_templates.py
+    debug_api.py
+    cleanup_test.py
+    */urls_test.py
+    eduAPI\urls\live_sessions_urls.py
+    eduAPI\urls.py
+    eduAPI/management/commands/createsuperuser.py
+    # استبعاد ملف tests.py الفارغ
+    eduAPI/tests.py
+    # ملفات لا تحتاج اختبار
+    eduAPI/management/commands/createsuperuser.py
+    eduAPI/urls.py
+    eduAPI/urls/live_sessions_urls.py
+
+[report]
+show_missing = True
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
+    except ImportError:

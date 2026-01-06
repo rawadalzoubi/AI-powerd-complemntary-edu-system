@@ -1,0 +1,38 @@
+[run]
+source = .
+omit =
+    */migrations/*
+    */tests/*
+    eduAPI/management/commands/createsuperuser.py
+    eduAPI\urls\live_sessions_urls.py
+    eduAPI\urls.py
+    */venv/*
+    */ve/*
+    */vu/*
+    */v2/*
+    */va/*
+    manage.py
+    # ملفات لا تحتاج اختبار
+    eduAPI/management/commands/createsuperuser.py
+    eduAPI/urls.py
+    eduAPI/urls/live_sessions_urls.py
+    */wsgi.py
+    */asgi.py
+    */settings.py
+    */apps.py
+    */__init__.py
+    */admin.py
+    # استبعاد الملفات غير المستخدمة والسكربتات الجانبية
+    */live_sessions_views.py
+    create_admin.py
+    create_superuser.py
+    delete_superuser.py
+    check_template.py
+    check_all_templates.py
+    debug_api.py
+    cleanup_test.py
+    */urls.py
+    */urls_test.py
+
+[report]
+show_missing = True

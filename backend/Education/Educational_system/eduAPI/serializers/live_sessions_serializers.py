@@ -24,8 +24,8 @@ class UserBasicSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'full_name', 'user_type']
-        read_only_fields = ['id', 'email', 'user_type']
+        fields = ['id', 'email', 'first_name', 'last_name', 'full_name', 'role']
+        read_only_fields = ['id', 'email', 'role']
 
 
 class LiveSessionSerializer(serializers.ModelSerializer):
@@ -233,7 +233,7 @@ class LiveSessionDetailSerializer(LiveSessionSerializer):
         notes = obj.notes.all()
         
         # Filter private notes
-        if user.user_type == 'STUDENT':
+        if user.role == 'student':
             notes = notes.filter(is_private=False)
         
         return LiveSessionNoteSerializer(notes, many=True).data
@@ -322,7 +322,7 @@ class SessionAssignmentCreateSerializer(serializers.Serializer):
         """Validate that all provided IDs are valid students"""
         students = User.objects.filter(
             id__in=value,
-            user_type='STUDENT'
+            role='student'
         )
         
         if len(students) != len(value):
@@ -364,9 +364,9 @@ class CalendarSessionSerializer(serializers.ModelSerializer):
         """Check if current user can join this session"""
         user = self.context['request'].user
         
-        if user.user_type == 'TEACHER' and user == obj.teacher:
+        if user.role == 'teacher' and user == obj.teacher:
             return obj.is_active
-        elif user.user_type == 'STUDENT':
+        elif user.role == 'student':
             return (obj.is_active and 
                    obj.assignments.filter(student=user).exists())
         
